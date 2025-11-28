@@ -10,41 +10,66 @@
 
       <div class="movies-thumbnail" *ngIf="trendingMovies && trendingMovies.length">
         <div class="movie" *ngFor="let movie of trendingMovies">
-          <div class="cover">
+          <div class="cover" (click)="goToMovie('trending',movie.id)">
             <img [src]="movie.cover" alt="{{ movie.name }}" />
           </div>
 
           <div class="details">
-            <div class="name">{{ movie.name }}</div>
+            <div class="name"(click)="goToMovie('trending',movie.id)">{{ movie.name }}</div>
 
             <!-- ✅ Custom heart template for rating -->
-            <ng-template #t let-fill="fill">
-              <i
-                class="bi bi-heart"
-                style="position: relative; color: #ccc; display: inline-block; width: 1.5rem;"
-              >
-                <i
-                  class="bi bi-heart-fill"
-                  style="color: red; position: absolute; top: 0; left: 0; overflow: hidden;"
-                  [style.width.%]="fill"
-                ></i>
-              </i>
-            </ng-template>
-
-            <!-- ✅ Correct rating binding -->
-            <ngb-rating
-              [rate]="movie.rating"
-              [starTemplate]="t"
-              [readonly]="true"
-              [max]="5"
-              [ariaValueText]="ariaValueText"
-            ></ngb-rating>
+            
 
             <!-- ✅ Show exact numeric rating below hearts -->
             <div class="rating-value">{{ movie.rating.toFixed(1) }}</div>
+            <app-star-rating [rating]="movie.rating" [isReadOnly]="true"></app-star-rating>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="theatre-movies">
+      <div class="top">
+        <h4>Popular in Theatres</h4>
+        <div class="view-all">View All</div>
+      </div>
+
+      <div class="movies-thumbnail" *ngIf="trendingMovies && trendingMovies.length">
+        <div class="movie" *ngFor="let movie of theatreMovies">
+          <div class="cover" (click)="goToMovie('theatre', movie.id)">
+            <img [src]="movie.cover" alt="{{ movie.name }}" />
+          </div>
+
+          <div class="details">
+            <div class="name"(click)="goToMovie('theatre',movie.id)">{{ movie.name }}</div>
+
+            <!-- ✅ Custom heart template for rating -->
+            
+
+            <!-- ✅ Show exact numeric rating below hearts -->
+            <div class="rating-value">{{ movie.rating.toFixed(1) }}</div>
+            <app-star-rating [rating]="movie.rating" [isReadOnly]="true"></app-star-rating>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="popular-movies">
+    <h4>All time Popular</h4>
+     <div class="movie" *ngFor="let movie of popularMovies">
+
+          <div class="details">
+            <div class="name"(click)="goToMovie('popular',movie.id)">{{ movie.name }}</div>
+
+            <!-- ✅ Custom heart template for rating -->
+            
+
+            <!-- ✅ Show exact numeric rating below hearts -->
+            <div class="rating-value">{{ movie.rating.toFixed(1) }}</div>
+            <app-star-rating [rating]="movie.rating" [isReadOnly]="true"></app-star-rating>
+          </div>
+        </div>
+        <div class="view-all">View all</div>
+      </div>
+  </div>
+
+
